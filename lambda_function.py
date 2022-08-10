@@ -12,15 +12,25 @@ s3_client = boto3.client('s3')
 s3 = boto3.resource('s3')
 
 def load_data(bucket_name, prefix):
+    """
+    buckect_name: bucket name where input data was loaded
+    prefix: prefix name where input data was loaded
+
+    Function reads and loads data in manageable chunk sizes to accomoate for large files. Then it returns concatanated dataframe.
+
+    """
+    # Retrieves object from s3 location
     obj = s3_client.get_object(Bucket=bucket_name, Key=prefix)
     
-    
+    # Choosing columns to be part of analysis
     use_cols = ['event_list', 'product_list', 'referrer']
+
+    # Read tsv file aand create iterator
     df_chunk = pd.read_csv(obj['Body'], sep='\t', usecols=use_cols, chunksize = 5)
     
    
     chunk_list = []
-
+    # Chunk dataframes to process large datasets
     for chunk in df_chunk:
         if chunk.empty == True:
             output_exp_msg = "There are no results that match your criteria. Dataframe is empty"
