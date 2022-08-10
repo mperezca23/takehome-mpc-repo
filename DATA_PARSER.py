@@ -1,6 +1,7 @@
 import re
 
 class ParseSearchUrls():
+    
     def __init__(self, url):
         self.df_col = url
     # method to extract seach engine domains from url    
