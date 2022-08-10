@@ -38,6 +38,7 @@ A little intro about the installation.
     - requirements.txt - required libraries needed for python application
     - buildspec.yml - File that CodeBuild would use to install, build, post_build instructions to create zip lambda deployment package
     - DATA_PARSER.py - Helper function class to parse data
+    - output - Folder containing output.tsv file
 3. Create CodeBuild project - Go to AWS Console and connect to Github repo. Add IAM permissions to access lambda and make changes 
 
 ```
