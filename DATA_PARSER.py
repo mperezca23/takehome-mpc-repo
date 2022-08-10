@@ -1,6 +1,23 @@
 import re
 
 class ParseSearchUrls():
+
+    """
+    A class to represent a parser url.
+    ...
+
+    Attributes
+    ----------
+    url : str
+        URL to be parsed
+    Methods
+    -------
+    search_engine(url):
+        extracts and returns search engine domains from URL
+    
+    key_word(url):
+        extracts and returns keyword search from url
+    """
     
     def __init__(self, url):
         self.df_col = url

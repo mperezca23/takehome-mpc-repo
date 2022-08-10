@@ -30,12 +30,11 @@ def load_data(bucket_name, prefix):
     
    
     chunk_list = []
-    # Chunk dataframes to process large datasets
+    # Parse iterator into Chunk dataframes to process large datasets if needed and append result to chunk list 
     for chunk in df_chunk:
         if chunk.empty == True:
-            output_exp_msg = "There are no results that match your criteria. Dataframe is empty"
+            print("There are no results that match your criteria. Dataframe is empty")
         
-            return output_exp_msg
         else:
             print("Dataframe was loaded.")
         
@@ -46,6 +45,14 @@ def load_data(bucket_name, prefix):
     return df_concat
     
 def upload_file_exp_to_s3(df, bucket_name, file_name, destination):
+
+    """
+    df: dataframe to upload
+    bucket_name: bucket name where output would be uploaded
+    file_name: name of output file
+    destination: object key where the output would be uploaded
+
+    """
     
     csv_buffer = StringIO()
     
@@ -69,6 +76,8 @@ def upload_file_exp_to_s3(df, bucket_name, file_name, destination):
     
  
 def main():
+    
+    # Variables to get bucket name, prefix, output filename and destination of output file
     bucket_name = 'takehome-martin'
     prefix = 'data/data.tsv'
     destination = 'data/output/'
@@ -92,6 +101,8 @@ def main():
     
     # Finally filtering data for confirmed purchases 'event_list'  == 1.0 and create ouput dataframe
     df_concat = df_concat[df_concat['event_list'] == 1.0]
+
+    # Create ouput dataframe with required attributes
 
     output_cols = ['Search Engine Domain', 'Search Keyword', 'Revenue']
 
